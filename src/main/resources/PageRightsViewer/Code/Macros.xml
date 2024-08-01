@@ -1,0 +1,118 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<xwikidoc version="1.5" reference="PageRightsViewer.Code.Macros" locale="">
+  <web>PageRightsViewer.Code</web>
+  <name>Macros</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <parent>WebHome</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <version>1.1</version>
+  <title/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>true</hidden>
+  <content>{{velocity output="false"}}
+#**
+ * This macro is used to display the rights of a given entity (wiki, space, page)
+ *
+ * @param $rules the list of security rules to be displayed
+ * @param $entityReference the EntityReference for which the rights are displayed
+ *#
+#macro (displayEntityRights $rules $entityReference)
+  #set ($groupRulesNormalized = $services.security.rights.getGroupRulesNormalized($rules))
+  #set ($organizedGroupRules = $services.security.rights.organizeRulesBySubjectAndState($groupRulesNormalized))
+  #set ($userRulesNormalized = $services.security.rights.getUserRulesNormalized($rules))
+  #set ($organizedUserRules = $services.security.rights.organizeRulesBySubjectAndState($userRulesNormalized))
+  #####
+  (% class="entity-rights-container" %)
+  (((
+  #if ("$!entityReference" != '')
+    #if ($entityReference.type == 'WIKI')
+      ==Global Rights Configuration==
+    #elseif($entityReference.type == 'SPACE')
+      #set ($space = "$entityReference.toString().replace('Space ', '')")
+      ==Rights defined on the page [[${space}&gt;&gt;space:${space}]] and its children ==
+    #else
+      ==Rights defined on the current page ([[$entityReference&gt;&gt;$entityReference]])==
+    #end
+  #end
+  #if ($organizedGroupRules.isEmpty() &amp;&amp; $organizedUserRules.isEmpty())
+    $services.localization.render('page.rights.viewer.rights.noRightsDefinedForEntity')
+  #else
+    #if(!$organizedGroupRules.isEmpty())
+      === $services.localization.render('page.rights.viewer.groups') ===
+
+      #displayRightsTable($organizedGroupRules 'group')
+    #end
+    #if(!$organizedUserRules.isEmpty())
+      === $services.localization.render('page.rights.viewer.individualUsers') ===
+
+      #displayRightsTable($organizedUserRules 'user')
+    #end
+  #end
+  )))
+#end
+#**
+ * This macro is used to display a list of security rule in a table
+ *
+ * @param $rules the list of security rules to be displayed
+ * @param $subjectType the type of the rules subjects (group/user)
+ *#
+#macro (displayRightsTable $rules $subjectType)
+  #set ($translationKeyPrefix = 'page.rights.viewer.rights.table')
+  &lt;table&gt;
+    &lt;tr&gt;
+      &lt;th&gt;$services.localization.render("${translationKeyPrefix}.${subjectType}Column")&lt;/th&gt;
+      &lt;th&gt;$services.localization.render("${translationKeyPrefix}.allowedRightsColumn")&lt;/th&gt;
+      &lt;th&gt;$services.localization.render("${translationKeyPrefix}.deniedRightsColumn")&lt;/th&gt;
+    &lt;/tr&gt;
+    #foreach ($entry in $rules.entrySet())
+      #set ($subjectReference = $entry.key)
+      &lt;tr&gt;
+      &lt;td&gt;
+        #if ($subjectType == 'group')
+          #displayGroup($subjectReference)
+        #else
+          #displayUser($subjectReference) &lt;span class="user-id"&gt;($subjectReference.name)&lt;span&gt;
+        #end
+      &lt;/td&gt;
+      #foreach($rights in [$entry.value.left.rights, $entry.value.right.rights])
+        &lt;td&gt;
+          #if("$!rights" != '' &amp;&amp; $rights.size() &gt; 0)
+            $!stringtool.join($rights, ', ')
+          #else
+            $services.localization.render('page.rights.viewer.rights.table.nd')
+          #end
+        &lt;/td&gt;
+      #end
+  #end
+  &lt;/table&gt;
+#end
+{{/velocity}}
+</content>
+</xwikidoc>
