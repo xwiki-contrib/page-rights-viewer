@@ -3,7 +3,7 @@
 Allow visualizing actual rights applied on a given wiki page and persistent rights applied on a page and each of its parent pages (tree).
 
 * Project Lead: [Mohamed Boussaa](http://www.xwiki.org/xwiki/bin/view/XWiki/mouhb)
-* Documentation & Downloads: [Documentation & Download](https://extensions.xwiki.org/xwiki/bin/view/Extension/(extension name)))
+* Documentation & Downloads: [Documentation & Download](https://extensions.xwiki.org/xwiki/bin/view/Extension/Page%20Rights%20Viewer%20Application/)
 * [Issue Tracker](https://jira.xwiki.org/browse/PRVA)
 * Communication: [Forum](https://forum.xwiki.org/), [Chat](https://dev.xwiki.org/xwiki/bin/view/Community/Chat)
 * [Development Practices](https://dev.xwiki.org)
