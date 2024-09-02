@@ -36,6 +36,7 @@
     <xwiki.issueManagement.jira.id>PRVA</xwiki.issueManagement.jira.id>
     <xwiki.release.jira.skip>false</xwiki.release.jira.skip>
     <xwiki.enforcer.skip>true</xwiki.enforcer.skip>
+    <xwiki.extension.category>application</xwiki.extension.category>
   </properties>
   <developers>
     <developer>
