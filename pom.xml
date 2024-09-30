@@ -28,7 +28,7 @@
     <version>14.10</version>
   </parent>
   <artifactId>application-page-rights-viewer</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.0.1</version>
   <name>Page Rights Viewer Application</name>
   <packaging>xar</packaging>
   <description>Allow visualizing actual rights applied on a given wiki page and persistent rights applied on a page and each of its parent pages (tree).</description>
@@ -48,7 +48,7 @@
    <connection>scm:git:git://github.com/xwiki-contrib/page-rights-viewer.git</connection>
    <developerConnection>scm:git:git@github.com:xwiki-contrib/page-rights-viewer.git</developerConnection>
    <url>https://github.com/xwiki-contrib/page-rights-viewer</url>
-    <tag>HEAD</tag>
+    <tag>application-page-rights-viewer-1.0.1</tag>
   </scm>
   <dependencies>
     <dependency>
