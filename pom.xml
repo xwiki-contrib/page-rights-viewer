@@ -50,16 +50,6 @@
    <url>https://github.com/xwiki-contrib/page-rights-viewer</url>
     <tag>HEAD</tag>
   </scm>
-  <build>
-    <extensions>
-      <!-- Needed to add support for the "xar" packaging -->
-      <extension>
-        <groupId>org.xwiki.commons</groupId>
-        <artifactId>xwiki-commons-tool-xar-handlers</artifactId>
-        <version>${commons.version}</version>
-      </extension>
-    </extensions>
-  </build>
   <dependencies>
     <dependency>
       <groupId>org.xwiki.contrib.api-rights</groupId>
