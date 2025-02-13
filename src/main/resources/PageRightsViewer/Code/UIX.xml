@@ -163,10 +163,14 @@
       <async_enabled>0</async_enabled>
     </property>
     <property>
-      <content>{{velocity}}{{html clean="false"}} ## we need clean="false" because we want to display the raw content of #submenuitem()
+      <content>{{velocity}}
+#if($services.security.authorization.hasAccess('view', 'PageRightsViewer.Code.UIX'))##
+{{html clean="false"}} ## we need clean="false" because we want to display the raw content of #submenuitem()
  #template('menus_macros.vm')
  #submenuitem($doc.getURL('view', 'sheet=PageRightsViewer.Code.Sheet'), $services.localization.render('page.rights.viewer'), 'id', 'class', 'group')
-{{/html}}{{/velocity}}</content>
+{{/html}}
+#end
+{{/velocity}}</content>
     </property>
     <property>
       <extensionPointId>org.xwiki.platform.template.menu.viewers</extensionPointId>
