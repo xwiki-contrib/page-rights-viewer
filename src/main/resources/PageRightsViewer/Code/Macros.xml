@@ -53,12 +53,12 @@
   (((
   #if ("$!entityReference" != '')
     #if ($entityReference.type == 'WIKI')
-      ==Global Rights Configuration==
+      ==$services.localization.render('page.rights.viewer.globalRightsConfiguration')==
     #elseif($entityReference.type == 'SPACE')
       #set ($space = "$entityReference.toString().replace('Space ', '')")
-      ==Rights defined on the page [[${space}&gt;&gt;space:${space}]] and its children ==
+      ==$services.localization.render('page.rights.viewer.pageAndChildrenRightsConfiguration', [$space])==
     #else
-      ==Rights defined on the current page ([[$entityReference&gt;&gt;$entityReference]])==
+      ==$services.localization.render('page.rights.viewer.currentPageRightsConfiguration', [$entityReference])==
     #end
   #end
   #if ($organizedGroupRules.isEmpty() &amp;&amp; $organizedUserRules.isEmpty())

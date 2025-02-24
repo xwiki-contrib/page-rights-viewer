@@ -43,12 +43,20 @@ page.rights.viewer.viewDetailedRightsBtn=View detailed rights
 page.rights.viewer.viewActualRightsBtn=View actual page rights
 page.rights.viewer.individualUsers=Individual users
 page.rights.viewer.groups=Groups
+page.rights.viewer.globalRightsConfiguration=Global Rights Configuration
+page.rights.viewer.pageAndChildrenRightsConfiguration=Rights defined on the page [[{0}&gt;&gt;space:{0}]] and its children
+page.rights.viewer.currentPageRightsConfiguration=Rights defined on the current page ([[{0}&gt;&gt;{0}]])
 page.rights.viewer.rights.table.userColumn=User
 page.rights.viewer.rights.table.groupColumn=Group
 page.rights.viewer.rights.table.allowedRightsColumn=Allowed rights
 page.rights.viewer.rights.table.deniedRightsColumn=Denied rights
 page.rights.viewer.rights.table.nd=N/D
-page.rights.viewer.rights.noRightsDefinedForEntity=No rights defined</content>
+page.rights.viewer.rights.noRightsDefinedForEntity=No rights defined
+# Actual rights macro
+rendering.macro.actualrights.name=Actual Rights Macro
+rendering.macro.actualrights.description=This macro will be used to display the actual rights table of a given page.
+rendering.macro.actualrights.parameter.reference.name=Page reference
+rendering.macro.actualrights.parameter.reference.description=The reference of the XWiki page for which to display actual rights. Leave empty to display the actual rights of the current page.</content>
   <object>
     <name>PageRightsViewer.Code.Translations</name>
     <number>0</number>
