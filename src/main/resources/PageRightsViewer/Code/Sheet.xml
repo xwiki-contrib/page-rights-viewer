@@ -55,7 +55,7 @@
 #end
 )))
 
-{{html wiki="true"}}
+{{html wiki="false"}}
 
 #if ($showDetails)
   #set ($chain =  $documentReference.getReversedReferenceChain())

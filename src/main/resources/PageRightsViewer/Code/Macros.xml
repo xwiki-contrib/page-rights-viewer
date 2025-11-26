@@ -48,34 +48,41 @@
   #set ($organizedGroupRules = $services.security.rights.organizeRulesBySubjectAndState($groupRulesNormalized))
   #set ($userRulesNormalized = $services.security.rights.getUserRulesNormalized($rules))
   #set ($organizedUserRules = $services.security.rights.organizeRulesBySubjectAndState($userRulesNormalized))
+  #set ($entityReferenceString = $services.model.serialize($entityReference, 'default'))
+  #set ($url = $xwiki.getURL($entityReference))
   #####
-  (% class="entity-rights-container" %)
-  (((
+  &lt;div class="entity-rights-container"&gt;
   #if ("$!entityReference" != '')
     #if ($entityReference.type == 'WIKI')
-      ==$services.localization.render('page.rights.viewer.globalRightsConfiguration')==
+      &lt;h2&gt;$services.localization.render('page.rights.viewer.globalRightsConfiguration')&lt;/h2&gt;
     #elseif($entityReference.type == 'SPACE')
-      #set ($space = "$entityReference.toString().replace('Space ', '')")
-      ==$services.localization.render('page.rights.viewer.pageAndChildrenRightsConfiguration', [$space])==
+      &lt;h2&gt;
+        $services.localization.render('page.rights.viewer.pageRightsConfiguration') 
+        &lt;a href="$escapetool.xml($url)"&gt;$escapetool.xml($entityReferenceString)&lt;/a&gt; 
+        $services.localization.render('page.rights.viewer.childrenRightsConfiguration')
+      &lt;/h2&gt;
     #else
-      ==$services.localization.render('page.rights.viewer.currentPageRightsConfiguration', [$entityReference])==
+      &lt;h2&gt;
+        $services.localization.render('page.rights.viewer.currentPageRightsConfiguration') 
+        (&lt;a href="$escapetool.xml($url)"&gt;$escapetool.xml($entityReferenceString)&lt;/a&gt;)
+      &lt;/h2&gt;
     #end
   #end
   #if ($organizedGroupRules.isEmpty() &amp;&amp; $organizedUserRules.isEmpty())
     $services.localization.render('page.rights.viewer.rights.noRightsDefinedForEntity')
   #else
     #if(!$organizedGroupRules.isEmpty())
-      === $services.localization.render('page.rights.viewer.groups') ===
+      &lt;h3&gt; $services.localization.render('page.rights.viewer.groups') &lt;/h3&gt;
 
       #displayRightsTable($organizedGroupRules 'group')
     #end
     #if(!$organizedUserRules.isEmpty())
-      === $services.localization.render('page.rights.viewer.individualUsers') ===
+      &lt;h3&gt; $services.localization.render('page.rights.viewer.individualUsers') &lt;/h3&gt;
 
       #displayRightsTable($organizedUserRules 'user')
     #end
   #end
-  )))
+  &lt;/div&gt;
 #end
 #**
  * This macro is used to display a list of security rule in a table
